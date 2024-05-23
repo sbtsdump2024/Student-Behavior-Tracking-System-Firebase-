@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Behavior Tracking System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='../boxicons-2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="logo.png" alt="logo">
+                </span>
+
+                <div class="text header-text">
+                    <span class="name">Name</span>
+                    <span class="profession">Admin</span>
+                </div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+        <div class="menu-bar">
+            <div class="menu">
+                    <li class="nav-link">
+                        <a href="index.php">
+                            <i class='bx bxs-dashboard icon' ></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-link active">
+                        <a href="search.php">
+                            <i class='bx bx-search-alt icon'></i>
+                            <span class="text nav-text">Search</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="report.php">
+                            <i class='bx bxs-report icon' ></i>
+                            <span class="text nav-text">Generate Report</span>
+                        </a>
+                    </li>
+            </div>
+            <div class="bottom-content">
+                <li class="logout">
+                    <a href="logout.php">
+                        <i class='bx bxs-log-out icon'></i>
+                        <span class="text nav-text">Log out</span>
+                    </a>
+                </li>
+            </div>
+        </div>
+    </div>
+    <section class="home">
+        <div class="university-name">XX University</div>
+        <div class="title">Search</div>
+        <div class="home-container">
+            <div class="search-page">
+                <span class="sub-title two">Enter Student Number</span>
+                <form action="search.php" method="GET" id="student-search-form">
+                    <div class="search-container">
+                        <i class='bx bx-search-alt icon'></i>
+                        <input type="text" name="student_id" placeholder="Enter Student ID">
+                        <button type="submit" style="display:none">Search</button> <!-- Make sure the submit button is visible -->
+                    </div>
+                </form>
+            </div>
+            <div class="profile-base" id="profile-holder" style="margin-top:50px; margin-left: 20px;">
+            </div>
+        </div>
+
+    </section>
+    
+    <script src="script.js"></script>
+    <script src="../host.js"></script>
+</body>
+</html>

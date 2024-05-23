@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Behavior Tracking System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='boxicons-2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        .violation-container {
+            width: 700px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="logo.png" alt="logo">
+                </span>
+
+                <div class="text header-text">
+                    <span class="name">Russel Anthony Ortanez</span>
+                    <span class="profession">Admin</span>
+                </div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+        <div class="menu-bar">
+            <div class="menu">
+                    <li class="nav-link">
+                        <a href="index.html">
+                            <i class='bx bxs-dashboard icon' ></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="search.html">
+                            <i class='bx bx-search-alt icon'></i>
+                            <span class="text nav-text">Search</span>
+                        </a>
+                    </li>
+                    <li class="nav-link active">
+                        <a href="report.html">
+                            <i class='bx bxs-report icon' ></i>
+                            <span class="text nav-text">Generate Report</span>
+                        </a>
+                    </li>
+            </div>
+            <div class="bottom-content">
+                <li class="logout">
+                    <a href="#">
+                        <i class='bx bxs-log-out icon' ></i>
+                        <span class="text nav-text">Log out</span>
+                    </a>
+                </li>
+            </div>
+        </div>
+    </div>
+    <section class="home">
+        <div class="university-name">XX University</div>
+        <div class="title">REPORT</div>
+        <div class="home-container">
+            <div class="profile">
+                <div class="profile-violation">
+                    <div class="violation-container">
+                        <form action="" class="v-form">
+                            <div class="v-column">
+                                <div class="v-input vio">
+                                    <label>Program</label>
+                                    <div class="select-container">
+                                        <div class="select-box">
+                                            <select>
+                                                <option hidden>Select Violation</option>
+                                                    <option>BSIT-BA</option>
+                                                    <option>BSIT-SD</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="v-input vio">
+                                    <label>Status</label>
+                                    <div class="select-container">
+                                        <div class="select-box">
+                                            <select>
+                                                <option hidden>Select Status</option>
+                                                    <option>Pending</option>
+                                                    <option>Settled</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="v-input vio">
+                                <label>Type of Offense</label>
+                                <div class="select-container">
+                                    <div class="select-box">
+                                        <select>
+                                            <option hidden>Select Violation</option>
+                                                <option>Light Offense</option>
+                                                <option>Serious Offense</option>
+                                                <option>Major Offense</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="v-column">
+                                <div class="v-input date">
+                                    <label>Start Date</label>
+                                    <input type="date" placeholder="Enter Date & Time" required/>
+                                </div>
+                                <div class="v-input date">
+                                    <label>End Date</label>
+                                    <input type="date" placeholder="Enter Date & Time" required/>
+                                </div>
+                            </div>
+                            <button class="add-button">Generate</button>
+                        </form>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </section>
+    
+    <script src="script.js"></script>
+</body>
+</html>

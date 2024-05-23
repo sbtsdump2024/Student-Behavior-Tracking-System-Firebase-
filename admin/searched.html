@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Behavior Tracking System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='../boxicons-2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="logo.png" alt="logo">
+                </span>
+
+                <div class="text header-text">
+                    <span class="name">Name</span>
+                    <span class="profession">Admin</span>
+                </div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+        <div class="menu-bar">
+            <div class="menu">
+                    <li class="nav-link">
+                        <a href="index.php">
+                            <i class='bx bxs-dashboard icon' ></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-link active">
+                        <a href="search.php">
+                            <i class='bx bx-search-alt icon'></i>
+                            <span class="text nav-text">Search</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="report.php">
+                            <i class='bx bxs-report icon' ></i>
+                            <span class="text nav-text">Generate Report</span>
+                        </a>
+                    </li>
+            </div>
+            <div class="bottom-content">
+                <li class="logout">
+                    <a href="logout.php">
+                        <i class='bx bxs-log-out icon'></i>
+                        <span class="text nav-text">Log out</span>
+                    </a>
+                </li>
+            </div>
+        </div>
+    </div>
+    <section class="home">
+        <div class="university-name">XX University</div>
+        <div class="title">Search</div>
+        <div class="home-container">
+            <div class="search-page">
+                <span class="sub-title two">Enter Student Number</span>
+                <form action="search.php" method="GET" id="student-search-form">
+                    <div class="search-container">
+                        <i class='bx bx-search-alt icon'></i>
+                        <input type="text" name="student_id" value="" id="student-search" placeholder="Search...">
+                        <button type="submit" style="display:none">Search</button> <!-- Make sure the submit button is visible -->
+                    </div>
+                </form>
+            </div>
+            <div class="profile" id="profile-holder">
+                <div class="profile-container">
+                    <div class="profile-menus" >
+                        <h1 class="sub-title">Student Profile</h1>
+                        <div style="margin-top:-15px; margin-bottom: 10px; padding-left: 20px; max-width: 190px" id="profile-name">
+                        <b>Name here</b><br>
+                        <span style="color: gray">000-000</span>
+                        </div>
+                        
+                        <div class="profile-pic">
+                                <img src="profile.png" alt="logo" class="prof-pic">
+                        </div>
+                        <div class="profile-menu">
+                            <li class="menu-detail active">
+                                <a href="#" id="menu-detail-link">
+                                    <span class="text nav-text active">DETAILS</span>
+                                </a>
+                            </li>
+                            <li class="menu-violation">
+                                <a href="#" id="menu-violation-link">
+                                    <span class="nav-text">ADD VIOLATION</span>
+                                </a>
+                            </li>
+                            <li class="menu-settle">
+                                <a href="#" id="menu-settle-link">
+                                    <span class="nav-text">SETTLE VIOLATION</span>
+                                </a>
+                            </li>
+                            <li class="menu-log">
+                                <a href="#" id="menu-log-link">
+                                    <span class="nav-text">LOGS</span>
+                                </a>
+                            </li>
+                    </div>
+                    </div>
+                    <div class="profile-details" id="profile-details">
+                        <table class="profile-table">
+                                <tr>
+                                    <th>Name</th>
+                                    <td>Name of student</td>
+                                </tr>
+                                <tr>
+                                    <th>Student Number</th>
+                                    <td>000-000</td>
+                                </tr>
+                                <tr>
+                                    <th>Program</th>
+                                    <td>Program of student</td>
+                                </tr>
+                                <tr>
+                                    <th>Year</th>
+                                    <td>Year level of student</td>
+                                </tr>
+                                <tr>
+                                    <th>Block</th>
+                                    <td>Block of student</td>
+                                </tr>
+                                    <th>Pending Violations</th>
+                                    <td>0</td>
+                                <!-- Display a message if no student data is found -->
+                        </table>
+                    </div>
+                    <div class="profile-violation" id="profile-violation">
+                        <header class="profile-sub-title">VIOLATION</header>
+                        <div class="violation-container">
+                        <form action="handle_violation.php" method="POST" class="v-form" id="violationForm">
+                        <input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>">
+                                <div class="v-column">
+                                    <div class="v-input date">
+                                        <label>Date & Time of Violation</label>
+                                        <input type="datetime-local" name="date_time" placeholder="Enter Date & Time" required/>
+                                    </div>
+                                    <div class="v-input reporter">
+                                        <label>Reporter</label>
+                                        <input type="text" name="reporter" placeholder="Enter name of reporter" required/>
+                                    </div>
+                                    <div class="v-input location">
+                                        <label>Location</label>
+                                        <input type="text" name="location" placeholder="Enter Location" required/>
+                                    </div>
+                                </div>
+                                <div class="v-input vio">
+                                    <label>Violation</label>
+                                    <div class="select-container">
+                                        <div class="select-box">
+                                            <select name="violation_type" required>
+                                                <option value="" hidden>Select Violation</option>
+                                                <optgroup label="Light Offense:">
+                                                    <option value="Light Offense: Improper disposal of waste in the appropriate waste can/bin">Improper disposal of waste in the appropriate waste can/bin</option>
+                                                    <option value="Light Offense: Non-observance of CLAYGO (Clean as you go)">Non-observance of CLAYGO (Clean as you go)</option>
+                                                    <option value="Light Offense: The teaching personnel may confiscate these devices and return them to the student after the class.">The teaching personnel may confiscate these devices and return them to the student after the class.</option>
+                                                    <option value="Light Offense: Blocking of stairways, corridors and doors, sitting on the stairs, congregating in front of doors and along the corridors">Blocking of stairways, corridors and doors, sitting on the stairs, congregating in front of doors and along the corridors</option>
+                                                    <option value="Light Offense: Intruding into the private lounges and/or rest rooms, whistling especially at ladies, boisterous laughter, and other nuisance of an unbecoming cultured individual.">Intruding into the private lounges and/or rest rooms, whistling especially at ladies, boisterous laughter, and other nuisance of an unbecoming cultured individual.</option>
+                                                    <option value="Light Offense: Uttering vulgar words or bad words">Uttering vulgar words or bad words</option>
+                                                    <option value="Light Offense: Unruly behavior inside the in-person or virtual classroom, or while within the University premises">Unruly behavior inside the in-person or virtual classroom, or while within the University premises</option>
+                                                    <option value="Light Offense: Unless otherwise authorized for legitimate purpose, bringing gambling paraphernalia inside the campus premises">Unless otherwise authorized for legitimate purpose, bringing gambling paraphernalia inside the campus premises</option>
+                                                    <option value="Light Offense: Smoke-belching vehicles, or leaving the vehicle engine on while parked inside the University premises">Smoke-belching vehicles, or leaving the vehicle engine on while parked inside the University premises</option>
+                                                    <option value="Light Offense: Laying of car stereo with the use of bass amplifiers, boosters at high volume">Laying of car stereo with the use of bass amplifiers, boosters at high volume</option>
+                                                    <option value="Light Offense: Violation of the University traffic policy">Violation of the University traffic policy</option>
+                                                    <option value="Light Offense: Unauthorized use of the University logo and name">Unauthorized use of the University logo and name</option>
+                                                    <option value="Light Offense: Simple disobedience to lawful orders of school authorities and/or their representatives">Simple disobedience to lawful orders of school authorities and/or their representatives</option>
+                                                    <option value="Light Offense: Violation of the rules of conduct on diligence and good grooming">Violation of the rules of conduct on diligence and good grooming</option>
+                                                    <option value="Light Offense: Violation of the rules and regulations on the use of organization rooms">Violation of the rules and regulations on the use of organization rooms</option>
+                                                    <option value="Light Offense: Posting on bulletin boards, display of posters, streamers and signboards within the University premises without the approval">Posting on bulletin boards, display of posters, streamers and signboards within the University premises without the approval</option>
+                                                    <option value="Light Offense: Other offenses analogous to the foregoing">Other offenses analogous to the foregoing</option>
+                                                </optgroup>
+                                                <optgroup label="Serious Offense:">
+                                                    <option value="Serious Offense: Possession/display/distribution of pornographic">Possession/display/distribution of pornographic materials</option>
+                                                    <option value="Serious Offense: Defacing, mutilating and removing officially posted materials">Defacing, mutilating and removing officially posted materials</option>
+                                                    <option value="Serious Offense: Planning/premeditating individual/organizing activities inimical to the best interest of the institution">Planning/premeditating individual/organizing activities inimical to the best interest of the institution</option>
+                                                    <option value="Serious Offense: Boisterous conduct and any form of intimidation during meetings, dialogues and/or other similar/related activities">Boisterous conduct and any form of intimidation during meetings, dialogues and/or other similar/related activities</option>
+                                                    <option value="Serious Offense: Drinking alcoholic beverages /online gambling or any form of gambling in public places while still wearing the school uniform">Drinking alcoholic beverages /online gambling or any form of gambling in public places while still wearing the school uniform</option>
+                                                    <option value="Serious Offense: Smoking inside the campus or within one hundred meters of the school perimeter">Smoking inside the campus or within one hundred meters of the school perimeter</option>
+                                                    <option value="Serious Offense: Gambling of any sort inside the campus">Gambling of any sort inside the campus</option>
+                                                    <option value="Serious Offense: Using/lending of ID/registration form of/to another student">Using/lending of ID/registration form of/to another student</option>
+                                                    <option value="Serious Offense: Playing of cards inside the campus">Playing of cards inside the campus</option>
+                                                    <option value="Serious Offense: Other offenses analogous to the foregoing">Other offenses analogous to the foregoing</option>
+                                                </optgroup>
+                                                <optgroup label="Major Offense:">
+                                                    <option value="Major Offense: Cheating. Aside from disciplinary sanction, the student may receive a failing academic grade for a particular quiz or examination">Cheating. Aside from disciplinary sanction, the student may receive a failing academic grade for a particular quiz or examination</option>
+                                                    <option value="Major Offense: Plagiarism">Plagiarism</option>
+                                                    <option value="Major Offense: Dishonesty">Dishonesty</option>
+                                                    <option value="Major Offense: Gross misconduct">Gross misconduct</option>
+                                                    <option value="Major Offense: Insubordination / willful disobedience of a lawful order">Insubordination / willful disobedience of a lawful order</option>
+                                                    <option value="Major Offense: Stealing/Theft">Stealing/Theft</option>
+                                                    <option value="Major Offense: Acts of disrespect">Acts of disrespect</option>
+                                                    <option value="Major Offense: Preventing or threatening students or teaching personnel or school authorities from discharging their duties">Preventing or threatening students or teaching personnel or school authorities from discharging their duties</option>
+                                                    <option value="Major Offense: Direct physical assault upon any member of the administration, faculty and personnel, or any persons vested with authority inside or outside the campus">Direct physical assault upon any member of the administration, faculty and personnel, or any persons vested with authority inside or outside the campus</option>
+                                                    <option value="Major Offense: Serious disturbance to peace and order">Serious disturbance to peace and order</option>
+                                                    <option value="Major Offense: Vandalism/Damage to /Destruction of University’s/ teacher’s/student’s property">Vandalism/Damage to /Destruction of University’s/ teacher’s/student’s property</option>
+                                                    <option value="Major Offense: Online hacking that causes damage to the good name of the school, school officials and its stakeholders">Online hacking that causes damage to the good name of the school, school officials and its stakeholders</option>
+                                                    <option value="Major Offense: Bringing and/or drinking liquor and/or alcoholic beverages">Bringing and/or drinking liquor and/or alcoholic beverages</option>
+                                                    <option value="Major Offense: Possession/Using/Selling of prohibited drugs including marijuana, shabu, ecstasy, or other illegal substance">Possession/Using/Selling of prohibited drugs including marijuana, shabu, ecstasy, or other illegal substance</option>
+                                                    <option value="Major Offense: Drug dependency">Drug dependency</option>
+                                                    <option value="Major Offense: Drunkenness">Drunkenness</option>
+                                                    <option value="Major Offense: Hooliganism">Hooliganism</option>
+                                                    <option value="Major Offense: Disseminating bomb jokes or any false information regarding explosives or any form of destructions">Disseminating bomb jokes or any false information regarding explosives or any form of destructions</option>
+                                                    <option value="Major Offense: Bringing/Carrying/Possession of firearms/deadly weapons/tools, explosives, firecrackers and any hazardous chemicals">Bringing/Carrying/Possession of firearms/deadly weapons/tools, explosives, firecrackers and any hazardous chemicals</option>
+                                                    <option value="Major Offense: Tampering of records, documents and/or receipts through forgery, fabrication and falsification">Tampering of records, documents and/or receipts through forgery, fabrication and falsification</option>
+                                                    <option value="Major Offense: Unauthorized use of the name of a teacher as a coauthor of an article to assure its publication">Unauthorized use of the name of a teacher as a coauthor of an article to assure its publication</option>
+                                                    <option value="Major Offense: Fraud or misrepresentation">Fraud or misrepresentation</option>
+                                                    <option value="Major Offense: Appropriation/Misappropriation of student organizations’ funds, properties">Appropriation/Misappropriation of student organizations’ funds, properties</option>
+                                                    <option value="Major Offense: Illegal rites/ceremonies/ ordeals to include hazing/ initiation (Bicameral Report on Anti- Hazing Act of 2018)">Illegal rites/ceremonies/ ordeals to include hazing/ initiation (Bicameral Report on Anti- Hazing Act of 2018)</option>
+                                                    <option value="Major Offense: Immorality/Public Display of Physical Intimacy/sexual harassment inside or outside the campus">Immorality/Public Display of Physical Intimacy/sexual harassment inside or outside the campus</option>
+                                                    <option value="Major Offense: Acts of lasciviousness/sexual mischief inside or outside the campus">Acts of lasciviousness/sexual mischief inside or outside the campus</option>
+                                                    <option value="Major Offense: Disruption of the academic functions or school activities">Disruption of the academic functions or school activities</option>
+                                                    <option value="Major Offense: Discourtesy">Discourtesy</option>
+                                                    <option value="Major Offense: Acts of subversion, sedition and insurgency as prohibited in the existing laws of the land">Acts of subversion, sedition and insurgency as prohibited in the existing laws of the land</option>
+                                                    <option value="Major Offense: Physical attack on fellow student/s, parents, visitors, and other stakeholders">Physical attack on fellow student/s, parents, visitors, and other stakeholders</option>
+                                                    <option value="Major Offense: Lying at the hearing on the charges against himself/ herself">Lying at the hearing on the charges against himself/ herself</option>
+                                                    <option value="Major Offense: Refusing to identify the student who violated a school regulation when he/she knew the student">Refusing to identify the student who violated a school regulation when he/she knew the student</option>
+                                                    <option value="Major Offense: Any act of disrespect in any form, in any medium, done toward University authorities, faculty members, employees, fellow students, and visitors">Any act of disrespect in any form, in any medium, done toward University authorities, faculty members, employees, fellow students, and visitors</option>
+                                                    <option value="Major Offense: Delivery of an offensively lewd and indecent speech, which contains sexual metaphors">Delivery of an offensively lewd and indecent speech, which contains sexual metaphors</option>
+                                                    <option value="Major Offense: Participating in or joining indecent shows, film, contests, appearing nude in any publication and the like">Participating in or joining indecent shows, film, contests, appearing nude in any publication and the like</option>
+                                                    <option value="Major Offense: Participating in any act of prostitution">Participating in any act of prostitution</option>
+                                                    <option value="Major Offense: Being employed in establishments of ill repute or businesses with immoral functions">Being employed in establishments of ill repute or businesses with immoral functions</option>
+                                                    <option value="Major Offense: Acts involving sexual misconduct">Acts involving sexual misconduct</option>
+                                                    <option value="Major Offense: Conviction or contempt of court for disobeying a restraining order">Conviction or contempt of court for disobeying a restraining order</option>
+                                                    <option value="Major Offense: Securing or using forged school records, forms, documents">Securing or using forged school records, forms, documents</option>
+                                                    <option value="Major Offense: Any act of bullying">Any act of bullying</option>
+                                                    <option value="Major Offense: Unauthorized access of school computer server, workstations, associated peripheral computer network.">Unauthorized access of school computer server, workstations, associated peripheral computer network.</option>
+                                                    <option value="Major Offense: Disclosing or sharing of sensitive information">Disclosing or sharing of sensitive information</option>
+                                                    <option value="Major Offense: Altering information and passwords of other accounts.">Altering information and passwords of other accounts.</option>
+                                                    <option value="Major Offense: Endangering and/or degrading the performance of the school’s ICT resources by introducing viruses and other unauthorized programs and applications">Endangering and/or degrading the performance of the school’s ICT resources by introducing viruses and other unauthorized programs and applications</option>
+                                                    <option value="Major Offense: Violation of RA 113d">Violation of RA 113d</option>
+                                                </optgroup>
+                                                <optgroup label="Others:">
+                                                    <option value="Other Offense: Other offenses analogous to the foregoing">Other offenses analogous to the foregoing</option>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="v-input remark">
+                                    <label>Remarks (optional)</label>
+                                    <input type="text" name="remarks" placeholder="Enter remarks" />
+                                </div>
+                                <button type="submit" class="add-button">Add</button>
+                                <button class="cancel-button">Cancel</button>
+                            </form>
+                            
+                        </div>
+                    </div>
+                    <div class="profile-settle" id="profile-settle">
+                        <header class="profile-sub-title">SETTLE</header>
+                        <div class="container">
+                            <table class="content-table settle">
+                                <tr>
+                                    <th>Violation ID</th>
+                                    <th>Reported by</th>
+                                    <th>Location</th>
+                                    <th>Offense Type</th>
+                                    <th>Violation</th>
+                                    <th>Date</th>
+                                    <th>Settle</th>
+                                </tr>
+                                <tbody>
+                                    <?php foreach ($violations as $violation): ?>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="max-width:300px;"></td>
+                                            <td></td>
+                                            <td>
+                                            <form action="settle_violation.php" method="POST" class="settle-form">
+                                                <input type="hidden" name="violation_id" value="<?php echo $violation['violation_id']; ?>">
+                                                <input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>"> <!-- Ensure this line is present -->
+                                                <button type="submit" class="settle-button"><i class='bx bx-check'></i></button>
+                                            </form>
+                                            </td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="settle-message" id="settle-message">
+                            <i class='bx bxs-user-check icon'></i>
+                            <h2>This Student has no pending violations.</h2>
+                        </div>
+                    </div>
+                    <div class="profile-log" id="profile-log" style="margin-left: 30px;">
+                        <div class="profile-log" id="profile-log">
+                            <header class="profile-sub-title">LOGS</header>
+                            <div class="container " id="container2">
+                                <table class="content-table" id="content-table2">
+                                    <tr>
+                                        <th style="max-width:30px;">Violation ID</th>
+                                        <th>Reported by</th>
+                                        <th>Location</th>
+                                        <th>Offense Type</th>
+                                        <th>Violation</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Settled Date</th>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="settle-message 2" id="settle-message2">
+                                <i class='bx bxs-user-check icon'></i>
+                                <h2>This Student has no record of violation.</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <script src="script.js"></script>
+    <script src="../host.js"></script>
+</body>
+</html>

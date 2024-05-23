@@ -1,0 +1,790 @@
+:root {
+    --body-color: rgb(245, 245, 245);
+    --sidebar-color: #181818;
+    --primary-color: #695cfe;
+    --primary-color-light: #f6f5ff;
+    --toggle-color: #ddd;
+    --text-color: #d8d8d8;
+    --body-text-color: #707070;
+
+    --trans-03: all 0.2s ease;
+    --trans-03: all 0.3s ease;
+    --trans-04: all 0.4s ease;
+    --trans-05: all 0.5s ease;
+}
+
+body {
+    font-family: 'Bahnschrift';
+    height: 100vh;
+    background: var(--body-color);
+}
+/*========reusable============*/
+.sidebar .text {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-color);
+    transition: var(--trans-03);
+    white-space: nowrap;
+    opacity: 1;
+}
+
+.sidebar .image{
+    min-width: 55px;
+    display: flex;
+    align-items: center;
+}
+
+.profile-sub-title {
+    font-size: 45px;
+    font-weight: 800;
+}
+/*========sidebar============*/
+
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    padding: 10px 14px;
+    background: var(--sidebar-color);
+    transition: var(--trans-05);
+    z-index: 100;
+}
+
+.sidebar.close {
+    width: 63px;
+}
+
+.sidebar.close .text {
+    opacity: 0%;
+}
+
+.sidebar .image-text img {
+    width: 40px;
+    border-radius: 6px;
+}
+
+.sidebar li {
+    height: 50px;
+    margin-top: 10px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar li.active {
+    background: var(--primary-color);
+    border-radius: 6px;
+}
+
+.sidebar li.active .icon,
+.sidebar li.active .text {
+    color: var(--sidebar-color);
+}
+
+.sidebar li .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+    font-size: 20px;
+}
+
+.sidebar li .icon,
+.sidebar li .text {
+    color: var(--text-color);
+}
+
+.sidebar header {
+    position: relative;
+}
+
+.sidebar header .image-text {
+    display: flex;
+    align-items: center;
+}
+
+header .image-text .header-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-text .name{
+    font-weight: 600;
+}
+
+.header-text .profession{
+    margin-top: -2px;
+}
+
+.sidebar header .toggle {
+    position:absolute;
+    top: 50%;
+    right: -25px;
+    transform: translateY(-50%);
+    height: 30px;
+    width: 30px;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--primary-color-light);
+    font-size: 22px;
+}
+
+.sidebar.close header .toggle {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.sidebar li a {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: var(--trans-04);
+}
+
+.sidebar li a:hover {
+    background: var(--primary-color)
+}
+
+.sidebar li.logout a:hover {
+    background: #ec1818;
+}
+
+.sidebar li a:hover .icon,
+.sidebar li a:hover .text {
+    color: var(--sidebar-color);
+}
+
+.sidebar .menu-bar {
+    margin-top: 30px;
+    height: calc(100% - 90px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.university-name {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: var(--sidebar-color);
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+.home{
+    position: relative;
+    height: 100vh;
+    left: 275px;
+    width: calc(100% - 275px);
+    background: var(--body-color);
+    transition: var(--trans-05);
+}
+
+.sidebar.close ~ .home{
+    left: 88px;
+    width: calc(100% - 88px);
+}
+
+.home .title {
+    font-size: 50px;
+    font-weight: 500;
+    color: var(--body-text-color);
+    padding: 8px 40px;
+}
+
+
+.home-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.recent {
+    flex: 70%;
+    min-height: 80vh;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.summary {
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    min-height: 50vh;
+    width: 350px;
+    flex: 300px;
+}
+
+@media (max-width: 900px) {
+    .recent, .summary {
+      flex: 100%;
+    }
+}
+
+.home .content-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    width: 100%;
+    background-color: rgb(252, 252, 252);
+}
+
+.home .sub-title {
+    font-size: 25px;
+    font-weight: 500;
+    color: var();
+    padding: 0px 20px;
+}
+
+.home .content-table th {
+    background: var(--primary-color);
+    color: var(--primary-color-light);
+    text-align: left;
+    font-weight: bold;
+}
+
+.home .content-table th,
+.home .content-table td {
+    padding: 12px 15px;
+}
+
+.content-table a {
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+
+.content-table tbody tr {
+    border-bottom: 1px solid lightgray;
+}
+
+.container-text {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+
+.violation {
+    flex: 100%;
+    min-height: 100px;
+    padding: 10px;
+}
+
+.settled {
+    padding: 40px 10px 10px 10px;
+    min-height: 100px;
+    border-top: 1px solid lightgray;
+    flex: 100%;
+}
+
+@media (max-width: 1380px) {
+    .violation {
+        flex-direction: row;
+        flex: 1;
+    }
+    .settled {
+        padding: 10px 10px 10px 40px;
+        border-top: 0px;
+        border-left: 1px solid lightgray;
+        flex-direction: row;
+        flex: 1;
+    }
+}
+
+@media (max-width: 700px) {
+    .violation {
+        flex-direction: row;
+        flex: 100%;
+    }
+
+    .settled {
+        padding: 40px 10px 10px 10px;
+        flex-direction: row;
+        flex: 100%;
+        border-top: 1px solid lightgray;
+        border-left: 0px;
+    }
+}
+
+.sub-sub-title {
+    letter-spacing: 3px;
+    color: var(--body-text-color);
+}
+
+.sub-sub-context {
+    font-size: 80px;
+    font-weight: 600;
+}
+
+.violation .sub-sub-context {
+    color: #d60d0d;
+}
+
+.settled .sub-sub-context {
+    color: #3fcc4d;
+}
+
+.graph {
+    margin-top: 20px;
+    padding: 20px 10px 10px 10px;
+    min-height: 100px;
+    border-top: 1px solid lightgray;
+    flex: 100%;
+}
+
+.graph i {
+    color: #9b9b9b;
+}
+
+.bar-container {
+    position: relative;
+    display: flex;
+    width: calc(100% - 40px); /* Adjust the width to accommodate two graphs per week */
+    align-items: flex-end;
+    height: 340px; /* Adjust the height if necessary */
+}
+
+.num-students {
+    position: absolute;
+    border-right: 1px solid black;
+    width: 30px; /* Adjust the width if necessary */
+    height: 300px; /* Adjust the height to ensure that two graphs can fit within the same space */
+    display: flex;
+    padding-bottom: 20px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.weeks {
+    position: relative;
+    left: 35px; /* Adjust the left positioning to align with the two graphs per week */
+    width: 100%;
+    border-top: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+.week::after,
+.week::before {
+    content: '';
+    position: absolute;
+    display: block;
+    bottom: 27px;
+    background: var(--primary-color);
+    width: 25px;
+    height: 50px; /* Adjust the height for each graph */
+}
+
+.week:nth-child(1)::before {
+    background-color: #d60d0d;
+    left: 0; /* Position the first bar */
+    height: calc((300px / 100) * 8); /* Adjust the height for the first bar */
+}
+
+.week:nth-child(1)::after {
+    background-color: #3fcc4d;
+    left: 25px; /* Position the second bar */
+    height: calc((300px / 100) * 3); /* Adjust the height for the second bar */
+}
+
+.week:nth-child(2)::before {
+    background-color: #d60d0d;
+    left: 80px; /* Position the first bar */
+    height: calc((300px / 100) * 8); /* Adjust the height for the first bar */
+}
+
+.week:nth-child(2)::after {
+    background-color: #3fcc4d;
+    left: 105px; /* Position the second bar */
+    height: calc((300px / 100) * 3); /* Adjust the height for the second bar */
+}
+
+.week:nth-child(3)::before {
+    background-color: #d60d0d;
+    left: 160px; /* Position the first bar */
+    height: calc((300px / 100) * 8); /* Adjust the height for the first bar */
+}
+
+.week:nth-child(3)::after {
+    background-color: #3fcc4d;
+    left: 185px; /* Position the second bar */
+    height: calc((300px / 100) * 3); /* Adjust the height for the second bar */
+}
+
+.week:nth-child(4)::before {
+    background-color: #d60d0d;
+    left: 240px; /* Position the first bar */
+    height: calc((300px / 100) * 8); /* Adjust the height for the first bar */
+}
+
+.week:nth-child(4)::after {
+    background-color: #3fcc4d;
+    left: 265px; /* Position the second bar */
+    height: calc((300px / 100) * 3); /* Adjust the height for the second bar */
+}
+
+.search-page {
+    width: 500px;
+    min-height: 8vh;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: var(--sidebar-color);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.search-container {
+    height: 50px;
+    margin-top: 10px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    width: 250px;
+    color: var(--);
+    background: var(--primary-color-light);
+    border-radius: 6px;
+}
+
+.sub-title.two {
+    color: var(--primary-color-light);
+    font-size: 20px;
+    margin-top: 22px;
+}
+
+.search-container .icon {
+    font-size: 20px;
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+.search-container input {
+    width: 100%;
+    height: 40px;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    background: var(--primary-color-light);
+}
+
+.profile {
+    flex: 100%;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profile-container {
+    height: 85vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.profile-menus {
+    flex: 100%;
+    border-right: 1px solid lightgray;
+}
+
+.profile-pic .prof-pic  {
+    width: 200px;
+    border-radius: 6px;
+}
+
+.profile-details {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left:  20px;
+}
+
+.profile-table th {
+    padding-left: 20px;
+    padding-right: 30px;
+    text-align: left;
+    height: 60px;
+}
+
+.profile-sub-title {
+    font-size: 45px;
+}
+
+.profile-menu li {
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+    list-style: none;
+}
+
+.profile-menu li a {
+    width: 100%; /* Ensure it takes up the full width of the <li> */
+    height: 100%;
+    text-decoration: none;
+    color: var(--sidebar-color);
+    font-weight: 500;
+    display: block;
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+}
+
+.profile-menu .nav-text {
+    margin-right: 10px;
+}
+
+.profile-menu li.active {
+    background: var(--primary-color);
+}
+
+.profile-menu .menu-detail:hover {
+    background: var(--primary-color);
+    transition: var(--trans-04);
+}
+
+.profile-menu .menu-log.active {
+    background-color: orange ;
+}
+
+.profile-menu .menu-log:hover {
+    background-color: orange ;
+    transition: var(--trans-04);
+}
+
+.profile-menu .menu-violation.active {
+    background-color: red ;
+}
+
+.profile-menu .menu-violation:hover {
+    background-color: red ;
+    transition: var(--trans-04);
+}
+
+.profile-menu .menu-settle.active {
+    background-color: rgb(12, 209, 94) ;
+}
+
+.profile-menu .menu-settle:hover {
+    background-color: rgb(12, 209, 94) ;
+    transition: var(--trans-04);
+}
+
+.profile-violation header {
+    margin-top: 10px;
+    margin-left: 45px;
+}
+
+.violation-container {
+    position: relative;
+    width: calc(100% - 36vh);
+    background-color: #eaecf1;
+    padding: 25px;
+    padding-right: 50px;
+    margin-top: 20px;
+    margin-left: 45px;
+    border-radius: 6px;
+}
+
+.violation-container .v-form .v-input {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.v-form label {
+    color: #333;
+}
+
+.violation-container .v-form .v-input input {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    color: #707070;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+}
+
+.select-box select {
+    position: relative;
+    height: 50px;
+    width: 103.5%;
+    outline: none;
+    font-size: 1rem;
+    color: #707070;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+}
+
+.violation-container .v-form .v-column {
+    display: flex;
+    column-gap: 15px;
+}
+
+.violation-container .v-form .v-column .v-input {
+    margin-right: 35px;
+}
+
+@media screen and (max-width: 1200px) {
+    .violation-container .v-form .v-column {
+        flex-wrap: wrap;
+    }
+}
+
+.violation-container .v-form .add-button {
+    height: 55px;
+    width: 100px;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    margin-top: 30px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 400;
+    background-color: green;
+}
+
+.violation-container .v-form .add-button:hover {
+    background-color: rgb(9, 173, 9);
+}
+
+.violation-container .v-form .cancel-button {
+    height: 55px;
+    width: 100px;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    margin-top: 30px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 400;
+    background-color: rgb(202, 34, 34);
+}
+
+.violation-container .v-form .cancel-button:hover {
+    background-color: rgb(253, 61, 61)
+}
+
+.profile-settle {
+    width: 100%;
+    height: 100%;
+    margin: 10px 0 0 50px;
+}
+
+.profile-settle .content-table .settle-button {
+    height: 25px;
+    width: 40px;
+    color: white;
+    background-color: green;
+    border-style: none;
+    border-radius: 2px;
+}
+
+.profile-settle .content-table .settle-button:hover {
+    background-color: rgb(6, 180, 6);
+}
+
+.profile-settle .container {
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    background-color: #eaecf1;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+}
+
+.profile-log {
+    width: 100%;
+    height: 100%;
+    margin: 5px 20px;
+}
+
+.profile-log .container {
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    background-color: #eaecf1;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+}
+
+.settle-message {
+    padding: 100px;
+    padding-left: 200px;
+    flex-direction: column !important;
+    justify-content: center !important; 
+    align-items: center !important;
+}
+
+.settle-message .icon {
+    padding-left: 160px;
+    font-size: 100px;
+    color: rgb(4, 117, 4);
+}
+
+.pagination {
+    display: flex;
+    align-items: end;
+    padding: 0 0 10px 0;
+
+}
+
+.pagination a {
+    margin: 0 5px; /* Add some space between the links */
+    padding: 8px 12px; /* Add padding inside the links */
+    text-decoration: none; /* Remove the underline */
+    color: #333; /* Set the text color */
+    background-color: #fff; /* Set the background color */
+    border-radius: 3px; /* Add rounded corners to the links */
+    border: 1px solid #ddd; /* Add a border */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.pagination a:hover {
+    background-color: #695cfe; /* Change the background color on hover */
+    color: #fff; /* Change the text color on hover */
+    border-color: #695cfe; /* Change the border color on hover */
+}
+
+.pagination a.active {
+    background-color: #695cfe; /* Set the background color for the active link */
+    color: #fff; /* Set the text color for the active link */
+    border-color: #695cfe; /* Set the border color for the active link */
+}
+
+.delete-button {
+    height: 25px;
+    width: 40px;
+    color: white;
+    background-color: rgb(128, 0, 0);
+    border-style: none;
+    border-radius: 2px;
+}
+
+.delete-button:hover {
+    background-color: rgb(180, 6, 6);
+}

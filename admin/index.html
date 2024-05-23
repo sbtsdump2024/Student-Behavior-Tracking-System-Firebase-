@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Behavior Tracking System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='../boxicons-2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="logo.png" alt="logo">
+                </span>
+
+                <div class="text header-text">
+                    <span class="name">Name</span>
+                    <span class="profession">Admin</span>
+                </div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+        <div class="menu-bar">
+            <div class="menu">
+                    <li class="nav-link active">
+                        <a href="index.php">
+                            <i class='bx bxs-dashboard icon' ></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="search.php">
+                            <i class='bx bx-search-alt icon'></i>
+                            <span class="text nav-text">Search</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="report.php">
+                            <i class='bx bxs-report icon' ></i>
+                            <span class="text nav-text">Generate Report</span>
+                        </a>
+                    </li>
+            </div>
+            <div class="bottom-content">
+                <li class="logout">
+                    <a href="logout.php">
+                        <i class='bx bxs-log-out icon'></i>
+                        <span class="text nav-text">Log out</span>
+                    </a>
+                </li>
+            </div>
+        </div>
+    </div>
+    <section class="home">
+        <div class="university-name">XX University</div>
+        <div class="title">Dashboard</div>
+        <div class="home-container">
+            <div class="recent">
+                <h1 class="sub-title">Recent Entry</h1>
+                <table class="content-table">
+                    <tr>
+                    <th>Violation ID</th>
+                    <th>Name</th>
+                    <th>Student Number</th>
+                    <th>Reported by</th>
+                    <th>Offense Type</th>
+                    <th>Violation</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Settled Date</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="summary">
+                <h1 class="sub-title">Monthly Summary</h1>
+                <div class="container-text">
+                    <div class="violation">
+                        <span class="sub-sub-title">VIOLATIONS THIS MONTH<br></span>
+                        <span class="sub-sub-context">0</span>
+                    </div>
+                    <div class="settled">
+                        <span class="sub-sub-title">SETTLED THIS MONTH<br></span>
+                        <span class="sub-sub-context">0</span>
+                    </div>
+                    <div class="graph">
+                        <span class="sub-sub-title">PIE CHART |</span>
+                        <i>Cases Visualization</i>
+                        <div class="bar-container">
+                            <div class="piechart" id="piechart" style="width: 400px; height: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    
+    <script src="script.js"></script>
+    <script src="../host.js"></script>
+</body>
+</html>

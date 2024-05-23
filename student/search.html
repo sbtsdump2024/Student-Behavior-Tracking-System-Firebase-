@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Behavior Tracking System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='boxicons-2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="logo.png" alt="logo">
+                </span>
+
+                <div class="text header-text">
+                    <span class="name">Russel Anthony Ortanez</span>
+                    <span class="profession">Admin</span>
+                </div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+        <div class="menu-bar">
+            <div class="menu">
+                    <li class="nav-link">
+                        <a href="index.html">
+                            <i class='bx bxs-dashboard icon' ></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-link active">
+                        <a href="search.html">
+                            <i class='bx bx-search-alt icon'></i>
+                            <span class="text nav-text">Search</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="report.html">
+                            <i class='bx bxs-report icon' ></i>
+                            <span class="text nav-text">Generate Report</span>
+                        </a>
+                    </li>
+            </div>
+            <div class="bottom-content">
+                <li class="logout">
+                    <a href="#">
+                        <i class='bx bxs-log-out icon' ></i>
+                        <span class="text nav-text">Log out</span>
+                    </a>
+                </li>
+            </div>
+        </div>
+    </div>
+    <section class="home">
+        <div class="university-name">XX University</div>
+        <div class="title">Search</div>
+        <div class="home-container">
+            <div class="search-page">
+                <span class="sub-title two">Enter Student Number</span>
+                <div class="search-container">
+                    <i class='bx bx-search-alt icon'></i>
+                    <input type="search" placeholder="Search..."></div>
+                </div>
+            </div>
+            <div class="profile">
+                <div class="profile-container">
+                    <div class="profile-menus">
+                        <h1 class="sub-title">Student Profile</h1>
+                        <div class="profile-pic">
+                                <img src="profile.png" alt="logo" class="prof-pic">
+                        </div>
+                        <div class="profile-menu">
+                            <li class="menu-detail active">
+                                <a href="#" id="menu-detail-link">
+                                    <span class="text nav-text active">DETAILS</span>
+                                </a>
+                            </li>
+                            <li class="menu-violation">
+                                <a href="#" id="menu-violation-link">
+                                    <span class="nav-text">ADD VIOLATION</span>
+                                </a>
+                            </li>
+                            <li class="menu-settle">
+                                <a href="#" id="menu-settle-link">
+                                    <span class="nav-text">SETTLE VIOLATION</span>
+                                </a>
+                            </li>
+                            <li class="menu-log">
+                                <a href="#" id="menu-log-link">
+                                    <span class="nav-text">LOGS</span>
+                                </a>
+                            </li>
+                    </div>
+                    </div>
+                    <div class="profile-details" id="profile-details">
+                        <table class="profile-table">
+                            <tr>
+                                <header>
+                                <th class="profile-sub-title">DETAILS</th>
+                                </header>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+                                <td>Russel Anthony Ortanez</td>
+                            </tr>
+                            <tr>
+                                <th>Student Number</th>
+                                <td>201-0347</td>
+                            </tr>
+                            <tr>
+                                <th>Program</th>
+                                <td>Computer Science</td>
+                            </tr>
+                            <tr>
+                                <th>Year</th>
+                                <td>2nd Year</td>
+                            </tr>
+                            <tr>
+                                <th>Block</th>
+                                <td>2A</td>
+                            </tr>
+                            <tr>
+                                <th>Pending Violations</th>
+                                <td>3</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="profile-violation" id="profile-violation">
+                        <header class="profile-sub-title">VIOLATION</header>
+                        <div class="violation-container">
+                            <form action="" class="v-form">
+                                <div class="v-column">
+                                    <div class="v-input date">
+                                        <label>Date & Time of Violation</label>
+                                        <input type="datetime-local" placeholder="Enter Date & Time" required/>
+                                    </div>
+                                    <div class="v-input reporter">
+                                        <label>Reporter</label>
+                                        <input type="text" placeholder="Enter name of reporter" required/>
+                                    </div>
+                                    <div class="v-input location">
+                                        <label>Location</label>
+                                        <input type="text" placeholder="Enter Location" required/>
+                                    </div>
+                                </div>
+                                <div class="v-input vio">
+                                    <label>Violation</label>
+                                    <div class="select-container">
+                                        <div class="select-box">
+                                            <select>
+                                                <option hidden>Select Violation</option>
+                                                <optgroup label="Light Offense:">
+                                                    <option>Non-conformity to the uniform regulations</option>
+                                                    <option>Inappropriate civilian clothes during non-uniform days</option>
+                                                    <option>Littering</option>
+                                                    <option>Using any form of electronic devices that may disrupt in-person or virtual classes or any school programs functions or gatherings.</option>
+                                                    <option>Simple misconduct</option>
+                                                    <option>Unauthorized entry to the campus or any office or facilities in the University</option>
+                                                </optgroup>
+                                                <optgroup label="Serious Offense:">
+                                                    <option>Possession/display/distribution of pornographic materials and/or articles within the campus</option>
+                                                    <option>Defacing, mutilating and removing officially posted materials</option>
+                                                    <option>Planning/premeditating individual/organizing activities inimical to the best interest of the institution</option>
+                                                    <option>Boisterous conduct and any form of intimidation during meetings, dialogues and/or other similar/ related activities</option>
+                                                    <option>Drinking alcoholic beverages /online gambling or any form of gambling in public places while still wearing the school uniform</option>
+                                                    <option>Smoking inside the campus or within one hundred meters of the school perimeter</option>
+                                                    <option>Gambling of any sort inside the campus</option>
+                                                    <option>Using/lending of ID/registration form of/to another student</option>
+                                                    <option>Playing of cards inside the campus</option>
+                                                </optgroup>
+                                                <optgroup label="Major Offense:">
+                                                    <option>Cheating</option>
+                                                    <option>Plagiarism</option>
+                                                    <option>Dishonesty</option>
+                                                    <option>Gross misconduct</option>
+                                                    <option>Insubordination / willful disobedience of a lawful order</option>
+                                                    <option>Stealing/Theft</option>
+                                                    <option>Acts of disrespect in words or in deeds</option>
+                                                    <option>Preventing or threatening students or teaching personnel or school authorities</option>
+                                                    <option>Physical assault</option>
+                                                    <option>Serious disturbance to peace and order</option>
+                                                    <option>Vandalism/Damage to /Destruction of University’s/ teacher’s/student’s property</option>
+                                                    <option>Online hacking</option>
+                                                    <option>Bringing and/or drinking liquor and/or alcoholic beverages inside the campus or during virtual classes or events, entering the campus in the state of intoxication</option>
+                                                    <option>Possession/Using/Selling of prohibited drugs</option>
+                                                    <option>Drug dependency</option>
+                                                    <option>Drunkenness</option>
+                                                    <option>Hooliganism</option>
+                                                    <option>Disseminating bomb jokes or any false information regarding explosives or any form of destructions</option>
+                                                    <option>Bringing/Carrying/Possession of firearms/deadly weapons/tools, explosives, firecrackers and any hazardous chemicals</option>
+                                                    <option>Tampering of records, documents and/or receipts through forgery, fabrication and falsification</option>
+                                                    <option>Unauthorized use of the name of a teacher as a coauthor of an article to assure its publication</option>
+                                                    <option>Fraud or misrepresentation</option>
+                                                    <option>Appropriation/Misappropriation of student organizations’ funds</option>
+                                                    <option>Illegal rites/ceremonies/ ordeals to include hazing/ initiation</option>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="v-input remark">
+                                    <label>Remarks (optional)</label>
+                                    <input type="text" placeholder="Enter remarks" />
+                                </div>
+                                <button class="add-button">Add</button>
+                                <button class="cancel-button">Cancel</button>
+                            </form>
+                            
+                        </div>
+                    </div>
+                    <div class="profile-settle" id="profile-settle">
+                        <div class="profile-settle" id="profile-settle">
+                            <header class="profile-sub-title">SETTLE</header>
+                            <div class="container">
+                            <table class="content-table settle">
+                                <tr>
+                                    <th>Student Number</th>
+                                    <th>Reported by</th>
+                                    <th>Violation</th>
+                                    <th>Date</th>
+                                    <th>Settle</th> <!-- New column for the settle action -->
+                                </tr>
+                                <tbody>
+                                    <tr>
+                                        <td>201-0347</td>
+                                        <td>Mr. Teacher Sample</td>
+                                        <td>Cheating</td>
+                                        <td>03/26/2024</td>
+                                        <td><button class="settle-button"><i class='bx bx-check'></i></button></td> <!-- Check button for settling the violation -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="profile-log" id="profile-log">
+                        <div class="profile-log" id="profile-log">
+                            <header class="profile-sub-title">LOGS</header>
+                            <div class="container">
+                            <table class="content-table">
+                                <tr>
+                                    <th>Student Number</th>
+                                    <th>Reported by</th>
+                                    <th>Violation</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                </tr>
+                                <tbody>
+                                    <tr>
+                                        <td>201-0347</td>
+                                        <td>Mr. Teacher Sample</td>
+                                        <td>Cheating</td>
+                                        <td>Settled</td>
+                                        <td>03/26/2024</td>
+                                    </tr>
+                                    <tr>
+                                        <td>201-0348</td>
+                                        <td>Ms. Teacher Sample</td>
+                                        <td>Bullying</td>
+                                        <td>On-going</td>
+                                        <td>03/27/2024</td>
+                                    </tr>
+                                    <!-- Add more rows as needed -->
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </section>
+    
+    <script src="script.js"></script>
+</body>
+</html>
