@@ -57,7 +57,7 @@
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             console.log("Admin signed in");
             uid = userCredential.user.uid; // Extract the UID from the userCredential
-            window.location.href = "admin/index.html?uid=" + uid;
+            window.location.href = "admin/dashboard.html?uid=" + uid;
         } catch (error) {
             console.error("Error signing in admin:", error);
         }
