@@ -6,6 +6,214 @@
     <title>Student Behavior Tracking System</title>
     <link rel="stylesheet" href="style.css">
     <link href='../boxicons-2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script type="module">
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+                import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+                import { getDatabase, ref, set, push, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+                
+                const firebaseConfig = {
+                    apiKey: "AIzaSyBeZvdx4PO72tqZmsYNsoPVyTJPMGPEpGQ",
+                    authDomain: "studentbehaviourtrackingsystem.firebaseapp.com",
+                    databaseURL: "https://studentbehaviourtrackingsystem-default-rtdb.asia-southeast1.firebasedatabase.app",
+                    projectId: "studentbehaviourtrackingsystem",
+                    storageBucket: "studentbehaviourtrackingsystem.appspot.com",
+                    messagingSenderId: "25791104038",
+                    appId: "1:25791104038:web:b53680f69051e44c4792e7",
+                    measurementId: "G-M465W2RKBJ"
+                  };
+                
+                  const app = initializeApp(firebaseConfig);
+                  const auth = getAuth(app);
+                  const db = getDatabase(app);
+
+                  document.addEventListener('DOMContentLoaded', (event) => {
+                    document.getElementById('student-search-form').addEventListener('submit', function(e) {
+                      e.preventDefault();
+                      searchStudent();
+                    });
+                  });
+                
+                  function searchStudent() {
+                    var studentId = document.getElementById('student-search').value;
+                    if(studentId) {
+                      window.location.href = `searched.html?student_id=${studentId}`;
+                    }
+                  }
+                
+                  document.getElementById('student-search-form').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    searchStudent();
+                  });
+            
+                // Fetch student data
+                function fetchData(studentId) {
+                    const studentsRef = ref(db, 'students');
+                    onValue(studentsRef, (snapshot) => {
+                        snapshot.forEach((childSnapshot) => {
+                            const childKey = childSnapshot.key;
+                            const childData = childSnapshot.val();
+                            if (childData.student_id === studentId) {
+                                console.log(childData); // Found the student
+                                document.getElementById("profile-sname").innerText = childData.firstname + " " + childData.lastname;
+                                document.getElementById("profile-id").innerText = childData.student_id;
+                                document.getElementById("profile-program").innerText = childData.program;
+                                document.getElementById("profile-year").innerText = childData.year_enrolled;
+                                document.getElementById("profile-block").innerText = childData.block;
+                            }
+                        });
+                    }, (errorObject) => {
+                        console.log('The read failed: ' + errorObject.code);
+                    });
+                }
+                
+                // Convert studentId from string to number if necessary
+                const numericIndex = parseInt(getQueryParam('student_id'), 10);
+                fetchData(numericIndex);
+        // Function to get query parameter value
+        function getQueryParam(name) {
+            return new URLSearchParams(window.location.search).get(name);
+        }
+
+        // Get the student_id from the URL
+        const studentId = getQueryParam('student_id');
+
+        // Check if studentId exists
+        if (studentId) {
+            // Fetch data for the student
+            fetchData(studentId); // fetchData is assumed to be defined elsewhere
+        } else {
+            console.error('No student_id found in the URL.');
+        }
+
+        document.getElementById('submitBtn').addEventListener('click', handleSubmit);
+
+        async function handleSubmit() {
+            event.preventDefault(); // Prevent the form from submitting normally
+        
+            try {
+                // Gather form data
+                let date_time = document.getElementById('date_time').value;
+                let reporter = document.getElementById('reporter').value;
+                let location = document.getElementById('location').value;
+                let violation_type = document.getElementById('violation_type').value;
+                let remarks = document.getElementById('remarks').value || ''; // Optional field
+        
+                // Reference to the Firebase database
+                const db = getDatabase();
+                const violationRef = ref(db, `violations/${studentId}`);
+
+                const newViolationRef = push(violationRef);
+        
+                // Construct the data object to send to Firebase
+                const violationData = {
+                    date_time: date_time,
+                    reporter: reporter,
+                    location: location,
+                    violation_type: violation_type,
+                    remarks: remarks
+                };
+        
+                // Insert the data into Firebase
+                set(newViolationRef, violationData)
+               .then(() => {
+                    alert('Violation reported successfully!');
+                    window.location.reload();
+                })
+               .catch((error) => {
+                    console.error("Error setting violation data:", error);
+                });
+            } catch (error) {
+                console.error("Error in handleSubmit:", error);
+            }
+        }
+
+        const violationsRef = ref(db, `violations/${studentId}`);
+        
+        onValue(violationsRef, (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const violation = childSnapshot.val();
+                // Dynamically create a table row for each violation
+                const row = document.createElement('tr');
+                row.setAttribute('data-key', `${childSnapshot.key}`); // Set the row's data-key attribute to the violation's unique key
+                row.innerHTML = `
+                    <td>${childSnapshot.key}</td>
+                    <td>${violation.reporter}</td>
+                    <td>${violation.location}</td>
+                    <td style="max-width:300px;">${violation.violation_type}</td>
+                    <td>${violation.date_time}</td>
+                    <td>
+                        <form action="" method="POST" class="settle-form">
+                            <button type="submit" class="settle-button"><i class='bx bx-trash'></i></button>
+                        </form>
+                    </td>
+                `;
+                document.getElementById('violation-table').appendChild(row);
+
+                // Attach the event listener to the row
+                row.addEventListener('click', handleRowClick);
+            });
+        }, (errorObject) => {
+            console.log('The read failed: ' + errorObject.code);
+        });
+        
+        function handleRowClick(event) {
+            // Check if the clicked element was the delete button
+            if (event.target.closest('.settle-button')) {
+                event.preventDefault(); // Prevent the form from submitting normally
+                const violationKey = event.currentTarget.getAttribute('data-key'); // Get the key from the row
+                if (!violationKey) {
+                    console.error("Violation key not found.");
+                    return;
+                }
+        
+                // Proceed with deletion...
+                deleteViolation(violationKey);
+            }
+        }
+        
+        async function deleteViolation(violationKey) {
+            // Since we now pass the violationKey directly, we don't need to retrieve it again
+            if (!violationKey) {
+                console.error("Violation key not found.");
+                return;
+            }
+        
+            // Construct the reference to the specific violation in Firebase
+            const violationRef = ref(db, `violations/${studentId}/${violationKey}`);
+        
+            // Delete the specified violation
+            remove(violationRef)
+           .then(() => {
+                alert('Violation deleted successfully!');
+                const table = document.getElementById('violation-table');
+                const rowToDelete = table.querySelector(`tr[data-key="${violationKey}"]`);
+                if (rowToDelete) {
+                    rowToDelete.remove();
+                }
+                window.location.reload();
+            })
+           .catch((error) => {
+                console.error("Error deleting violation:", error);
+            });
+        }
+
+        function logout() {
+            signOut(auth).then(() => {
+                // Sign-out successful.
+                console.log('User signed out');
+                // Redirect to the login page or show a message indicating successful logout
+                window.location.href = '../admin-login.html'; // Change this to your login page URL
+            }).catch((error) => {
+                // An error happened.
+                console.error('Sign out error:', error);
+            });
+        }
+        
+        document.getElementById('logoutbtn').addEventListener('click', () => {
+            logout();
+        });
+    </script>
 </head>
 <body>
     <div class="sidebar close">
@@ -25,27 +233,21 @@
         <div class="menu-bar">
             <div class="menu">
                     <li class="nav-link">
-                        <a href="index.php">
+                        <a href="index.html">
                             <i class='bx bxs-dashboard icon' ></i>
                             <span class="text nav-text">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-link active">
-                        <a href="search.php">
+                        <a href="search.html">
                             <i class='bx bx-search-alt icon'></i>
                             <span class="text nav-text">Search</span>
                         </a>
                     </li>
-                    <li class="nav-link">
-                        <a href="report.php">
-                            <i class='bx bxs-report icon' ></i>
-                            <span class="text nav-text">Generate Report</span>
-                        </a>
-                    </li>
             </div>
             <div class="bottom-content">
-                <li class="logout">
-                    <a href="logout.php">
+                <li class="logout" id="logoutbtn">
+                    <a href="#">
                         <i class='bx bxs-log-out icon'></i>
                         <span class="text nav-text">Log out</span>
                     </a>
@@ -71,10 +273,6 @@
                 <div class="profile-container">
                     <div class="profile-menus" >
                         <h1 class="sub-title">Student Profile</h1>
-                        <div style="margin-top:-15px; margin-bottom: 10px; padding-left: 20px; max-width: 190px" id="profile-name">
-                        <b>Name here</b><br>
-                        <span style="color: gray">000-000</span>
-                        </div>
                         
                         <div class="profile-pic">
                                 <img src="profile.png" alt="logo" class="prof-pic">
@@ -95,34 +293,29 @@
                                     <span class="nav-text">SETTLE VIOLATION</span>
                                 </a>
                             </li>
-                            <li class="menu-log">
-                                <a href="#" id="menu-log-link">
-                                    <span class="nav-text">LOGS</span>
-                                </a>
-                            </li>
                     </div>
                     </div>
                     <div class="profile-details" id="profile-details">
                         <table class="profile-table">
                                 <tr>
                                     <th>Name</th>
-                                    <td>Name of student</td>
+                                    <td id="profile-sname">Name of student</td>
                                 </tr>
                                 <tr>
                                     <th>Student Number</th>
-                                    <td>000-000</td>
+                                    <td id="profile-id">000-000</td>
                                 </tr>
                                 <tr>
                                     <th>Program</th>
-                                    <td>Program of student</td>
+                                    <td id="profile-program">Program of student</td>
                                 </tr>
                                 <tr>
                                     <th>Year</th>
-                                    <td>Year level of student</td>
+                                    <td id="profile-year">Year level of student</td>
                                 </tr>
                                 <tr>
                                     <th>Block</th>
-                                    <td>Block of student</td>
+                                    <td id="profile-block">Block of student</td>
                                 </tr>
                                     <th>Pending Violations</th>
                                     <td>0</td>
@@ -132,27 +325,28 @@
                     <div class="profile-violation" id="profile-violation">
                         <header class="profile-sub-title">VIOLATION</header>
                         <div class="violation-container">
-                        <form action="handle_violation.php" method="POST" class="v-form" id="violationForm">
+                            <form action="" method="POST" class="v-form" id="violationForm" onsubmit="handleSubmit(event)">
+
                         <input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>">
                                 <div class="v-column">
                                     <div class="v-input date">
                                         <label>Date & Time of Violation</label>
-                                        <input type="datetime-local" name="date_time" placeholder="Enter Date & Time" required/>
+                                        <input type="datetime-local" name="date_time" id="date_time" placeholder="Enter Date & Time" required/>
                                     </div>
                                     <div class="v-input reporter">
                                         <label>Reporter</label>
-                                        <input type="text" name="reporter" placeholder="Enter name of reporter" required/>
+                                        <input type="text" name="reporter" id="reporter" placeholder="Enter name of reporter" required/>
                                     </div>
                                     <div class="v-input location">
                                         <label>Location</label>
-                                        <input type="text" name="location" placeholder="Enter Location" required/>
+                                        <input type="text" name="location" id="location" placeholder="Enter Location" required/>
                                     </div>
                                 </div>
                                 <div class="v-input vio">
                                     <label>Violation</label>
                                     <div class="select-container">
                                         <div class="select-box">
-                                            <select name="violation_type" required>
+                                            <select name="violation_type" id="violation_type" required>
                                                 <option value="" hidden>Select Violation</option>
                                                 <optgroup label="Light Offense:">
                                                     <option value="Light Offense: Improper disposal of waste in the appropriate waste can/bin">Improper disposal of waste in the appropriate waste can/bin</option>
@@ -242,9 +436,9 @@
                                 </div>
                                 <div class="v-input remark">
                                     <label>Remarks (optional)</label>
-                                    <input type="text" name="remarks" placeholder="Enter remarks" />
+                                    <input type="text" name="remarks" id="remarks" placeholder="Enter remarks" />
                                 </div>
-                                <button type="submit" class="add-button">Add</button>
+                                <button type="submit" id="submitBtn" class="add-button">Add</button>
                                 <button class="cancel-button">Cancel</button>
                             </form>
                             
@@ -253,32 +447,17 @@
                     <div class="profile-settle" id="profile-settle">
                         <header class="profile-sub-title">SETTLE</header>
                         <div class="container">
-                            <table class="content-table settle">
+                            <table class="content-table settle" id="violation-table">
                                 <tr>
-                                    <th>Violation ID</th>
-                                    <th>Reported by</th>
+                                    <th>Violation Ref</th>
+                                    <th>Reporter</th>
                                     <th>Location</th>
-                                    <th>Offense Type</th>
-                                    <th>Violation</th>
+                                    <th>Violation Type</th>
                                     <th>Date</th>
-                                    <th>Settle</th>
+                                    <th>Delete</th>
                                 </tr>
                                 <tbody>
-                                    <?php foreach ($violations as $violation): ?>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td style="max-width:300px;"></td>
-                                            <td></td>
-                                            <td>
-                                            <form action="settle_violation.php" method="POST" class="settle-form">
-                                                <input type="hidden" name="violation_id" value="<?php echo $violation['violation_id']; ?>">
-                                                <input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>"> <!-- Ensure this line is present -->
-                                                <button type="submit" class="settle-button"><i class='bx bx-check'></i></button>
-                                            </form>
-                                            </td>
                                         </tr>
                                 </tbody>
                             </table>
@@ -317,6 +496,8 @@
         </div>
     </section>
     <script src="script.js"></script>
-    <script src="../host.js"></script>
+    <script>
+        
+    </script>
 </body>
 </html>

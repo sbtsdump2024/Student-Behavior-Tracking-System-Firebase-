@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         profileViolation.style.display = 'none';
         profileSettle.style.display = 'none';
         profileLog.style.display = 'none';
-        profileName.style.display = 'none';
+
 
     function toggleVisibility(clickedLink) {
         console.log("toggleVisibility called with:", clickedLink.id);
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         profileViolation.style.display = 'none';
         profileSettle.style.display = 'none';
         profileLog.style.display = 'none';
-        profileName.style.display = 'none';
+
 
         const menuItems = document.querySelectorAll('.profile-menu li');
         menuItems.forEach(item => item.classList.remove('active'));
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (clickedLink.id === 'menu-detail-link') {
             profileDetails.style.display = 'block';
-            profileName.style.display = 'none';
+
         } else if (clickedLink.id === 'menu-violation-link') {
             profileViolation.style.display = 'block';
             profileName.style.display = 'block';
@@ -49,6 +49,8 @@ document.addEventListener('DOMContentLoaded', function() {
             profileLog.style.display = 'block';
             profileName.style.display = 'block';
         }
+
+        
     }
 
     menuLinks.forEach(link => {

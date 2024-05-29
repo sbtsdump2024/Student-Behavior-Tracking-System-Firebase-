@@ -1,0 +1,27 @@
+authentication enabled,
+
+admins
+    UID
+        email
+        fullname
+        last_login
+        username
+
+students
+    childSnapshot.key
+        block
+        firstname
+        lastname
+        program
+        student_id
+        year_enrolled
+        yearlevel
+
+violations
+    student_id
+        childSnapshot.key
+            date_time
+            location
+            remarks
+            reporter
+            violation_type

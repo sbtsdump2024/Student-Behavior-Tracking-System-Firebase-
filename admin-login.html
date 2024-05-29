@@ -5,6 +5,65 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login</title>
 <link rel="stylesheet" href="admin-login-style.css">
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    
+    const firebaseConfig = {
+        apiKey: "AIzaSyBeZvdx4PO72tqZmsYNsoPVyTJPMGPEpGQ",
+        authDomain: "studentbehaviourtrackingsystem.firebaseapp.com",
+        databaseURL: "https://studentbehaviourtrackingsystem-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "studentbehaviourtrackingsystem",
+        storageBucket: "studentbehaviourtrackingsystem.appspot.com",
+        messagingSenderId: "25791104038",
+        appId: "1:25791104038:web:b53680f69051e44c4792e7",
+        measurementId: "G-M465W2RKBJ"
+      };
+    
+    const app = initializeApp(firebaseConfig);
+    
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+    
+        // Get the email and password from the form inputs
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+    
+        // Call signInAndFetchData with the email and password
+        signInAndFetchData(email, password).then(() => {
+            console.log('Signed in and fetched data successfully');
+        }).catch((error) => {
+            console.error('Error during sign-in or fetching data:', error);
+        });
+    });
+    
+    async function signInAndFetchData(email, password) {
+        try {
+            const uid = await signInAdmin(email, password); // Await the UID from signInAdmin
+            if (uid) {
+                // After successful sign-in, fetch the admin's data
+                fetchDataForAdmin(uid);
+            }
+        } catch (error) {
+            console.error("Error during sign-in or fetching data:", error);
+        }
+    }
+    
+    async function signInAdmin(email, password) {
+        const auth = getAuth();
+        let uid; // Declare a variable to hold the UID
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            console.log("Admin signed in");
+            uid = userCredential.user.uid; // Extract the UID from the userCredential
+            window.location.href = "admin/index.html?uid=" + uid;
+        } catch (error) {
+            console.error("Error signing in admin:", error);
+        }
+        return uid; // Return the UID after sign-in
+    }
+</script>
 </head>
 <body>
 
@@ -24,22 +83,21 @@
 </div >
 
 <div class="topnav">
-    <a class="menu2" style="background-color: #251d85;"><b>ADMIN</b></a>
+    <a class="menu2" style="background-color: #251d85;"><b>LOGIN</b></a>
+    <a class="menu2" href="admin-register.html" style="background-color: #150f4e;"><b>REGISTER</b></a>
 </div>
 
 <div class="form-container">
-<form action="" method="post">
-    <h1>Login</h1><br>
-    <label for="idnumber">ID Number</label>
-    <input type="text" name="idnumber" id="idnumber" required>
-    <label for="password"><br>Password:</label>
-    <input type="password" name="password" id="password" required>
-    <br>
-    <button type="submit" name="login"><b>Confirm</b></button>
-</form>
+    <form id="loginForm">
+        <h1>Login</h1><br>
+        <label for="email">Email:</label>
+        <input type="text" name="email" id="email" required>
+        <label for="password"><br>Password:</label>
+        <input type="password" name="password" id="password" required>
+        <br>
+        <button type="submit"><b>Confirm</b></button>
+    </form>
 </div>
-
-<script src="host.js"></script>
 
 </body>
 </html>

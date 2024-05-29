@@ -16,7 +16,9 @@
                 </span>
 
                 <div class="text header-text">
-                    <span class="name">Name</span>
+                    <div style="width: 200px;">
+                        <span class="name" id="name" style="white-space: normal; overflow-wrap: break-word;">Name</span>
+                    </div>
                     <span class="profession">Admin</span>
                 </div>
             </div>
@@ -25,27 +27,21 @@
         <div class="menu-bar">
             <div class="menu">
                     <li class="nav-link">
-                        <a href="index.php">
+                        <a href="index.html">
                             <i class='bx bxs-dashboard icon' ></i>
                             <span class="text nav-text">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-link active">
-                        <a href="search.php">
+                        <a href="search.html">
                             <i class='bx bx-search-alt icon'></i>
                             <span class="text nav-text">Search</span>
                         </a>
                     </li>
-                    <li class="nav-link">
-                        <a href="report.php">
-                            <i class='bx bxs-report icon' ></i>
-                            <span class="text nav-text">Generate Report</span>
-                        </a>
-                    </li>
             </div>
             <div class="bottom-content">
-                <li class="logout">
-                    <a href="logout.php">
+                <li class="logout" id="logoutbtn">
+                    <a href="#">
                         <i class='bx bxs-log-out icon'></i>
                         <span class="text nav-text">Log out</span>
                     </a>
@@ -59,10 +55,10 @@
         <div class="home-container">
             <div class="search-page">
                 <span class="sub-title two">Enter Student Number</span>
-                <form action="search.php" method="GET" id="student-search-form">
+                <form action="" method="GET" id="student-search-form">
                     <div class="search-container">
                         <i class='bx bx-search-alt icon'></i>
-                        <input type="text" name="student_id" placeholder="Enter Student ID">
+                        <input type="text" name="student_id" placeholder="Enter Student ID" id="student-search">
                         <button type="submit" style="display:none">Search</button> <!-- Make sure the submit button is visible -->
                     </div>
                 </form>
@@ -73,7 +69,61 @@
 
     </section>
     
-    <script src="script.js"></script>
-    <script src="../host.js"></script>
+<script src="script.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBeZvdx4PO72tqZmsYNsoPVyTJPMGPEpGQ",
+    authDomain: "studentbehaviourtrackingsystem.firebaseapp.com",
+    databaseURL: "https://studentbehaviourtrackingsystem-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "studentbehaviourtrackingsystem",
+    storageBucket: "studentbehaviourtrackingsystem.appspot.com",
+    messagingSenderId: "25791104038",
+    appId: "1:25791104038:web:b53680f69051e44c4792e7",
+    measurementId: "G-M465W2RKBJ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+
+  document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('student-search-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      searchStudent();
+    });
+  });
+
+  function searchStudent() {
+    var studentId = document.getElementById('student-search').value;
+    if(studentId) {
+      window.location.href = `searched.html?student_id=${studentId}`;
+    }
+  }
+
+  document.getElementById('student-search-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    searchStudent();
+  });
+
+  function logout() {
+    signOut(auth).then(() => {
+        // Sign-out successful.
+        console.log('User signed out');
+        // Redirect to the login page or show a message indicating successful logout
+        window.location.href = '../admin-login.html'; // Change this to your login page URL
+    }).catch((error) => {
+        // An error happened.
+        console.error('Sign out error:', error);
+    });
+}
+
+document.getElementById('logoutbtn').addEventListener('click', () => {
+    logout();
+});
+    </script>
 </body>
 </html>
